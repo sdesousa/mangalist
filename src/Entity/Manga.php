@@ -48,6 +48,17 @@ class Manga
      */
     private $year;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Editor", inversedBy="mangas")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $editor;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EditorCollection", inversedBy="mangas")
+     */
+    private $editorCollection;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,6 +108,30 @@ class Manga
     public function setYear(?int $year): self
     {
         $this->year = $year;
+
+        return $this;
+    }
+
+    public function getEditor(): ?Editor
+    {
+        return $this->editor;
+    }
+
+    public function setEditor(?Editor $editor): self
+    {
+        $this->editor = $editor;
+
+        return $this;
+    }
+
+    public function getEditorCollection(): ?EditorCollection
+    {
+        return $this->editorCollection;
+    }
+
+    public function setEditorCollection(?EditorCollection $editorCollection): self
+    {
+        $this->editorCollection = $editorCollection;
 
         return $this;
     }

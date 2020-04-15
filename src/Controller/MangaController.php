@@ -17,6 +17,8 @@ class MangaController extends AbstractController
 {
     /**
      * @Route("/", name="manga_index", methods={"GET"})
+     * @param MangaRepository $mangaRepository
+     * @return Response
      */
     public function index(MangaRepository $mangaRepository): Response
     {
@@ -27,6 +29,8 @@ class MangaController extends AbstractController
 
     /**
      * @Route("/new", name="manga_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +54,8 @@ class MangaController extends AbstractController
 
     /**
      * @Route("/{id}", name="manga_show", methods={"GET"})
+     * @param Manga $manga
+     * @return Response
      */
     public function show(Manga $manga): Response
     {
@@ -60,6 +66,9 @@ class MangaController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="manga_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Manga $manga
+     * @return Response
      */
     public function edit(Request $request, Manga $manga): Response
     {
@@ -80,6 +89,9 @@ class MangaController extends AbstractController
 
     /**
      * @Route("/{id}", name="manga_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Manga $manga
+     * @return Response
      */
     public function delete(Request $request, Manga $manga): Response
     {
