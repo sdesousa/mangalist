@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Manga{% endblock %}
+
+{% block body %}
+    <h1>Create new Manga</h1>
+
+    {{ include('manga/_form.html.twig') }}
+
+    <a href="{{ path('manga_index') }}">back to list</a>
+{% endblock %}

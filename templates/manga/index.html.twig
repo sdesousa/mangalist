@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manga index{% endblock %}
+
+{% block body %}
+
+    <main class="container-fluid">
+        <h1 class="">Manga index</h1>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Volumes</th>
+                <th>Disponible</th>
+                <th>Année</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for manga in mangas %}
+                <tr>
+                    <td>{{ manga.title }}</td>
+                    <td>{{ manga.totalVolume }}</td>
+                    <td>{{ manga.availableVolume }}</td>
+                    <td>{{ manga.year }}</td>
+                    <td>
+                        <a href="{{ path('manga_show', {'id': manga.id}) }}">show</a>
+                        <a href="{{ path('manga_edit', {'id': manga.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="6">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+{% endblock %}

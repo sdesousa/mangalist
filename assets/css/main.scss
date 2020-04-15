@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: $darker-color;
+  font-family: $font-body;
+  font-size: $font-size-body;
+}
+
+h1 {
+  font-size: $font-size-title;
+  font-family: $font-title;
+  font-weight: bold;
+  color: $primary-color;
+  margin: 1rem;
+  display: inline-block;
+  border-bottom: 2px solid;
+}
