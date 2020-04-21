@@ -22,3 +22,35 @@ nav {
     }
   }
 }
+
+.navbar-admin {
+  height: 100%;
+  min-height: 100vh;
+  overflow-y: auto;
+
+  .nav-admin-title {
+    text-align: center;
+    border-bottom: 2px solid $primary-color;
+
+    h2 {
+      color: $lighter-color;
+      font-family: $font-title;
+      font-weight: bold;
+    }
+  }
+
+  a.nav-link {
+    color: $lighter-color;
+    margin-left: 1rem;
+    &:hover {
+      color: $secondary-color;
+      text-decoration: none;
+    }
+  }
+
+  .list-separator {
+    height: 0;
+    width: 50%;
+    border-bottom: 1px dashed $lighter-color;
+  }
+}
