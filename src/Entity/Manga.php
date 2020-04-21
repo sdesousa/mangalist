@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -58,6 +60,16 @@ class Manga
      * @ORM\ManyToOne(targetEntity="App\Entity\EditorCollection", inversedBy="mangas")
      */
     private $editorCollection;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\MangaAuthor", mappedBy="manga")
+     */
+    private $mangaAuthors;
+
+    public function __construct()
+    {
+        $this->mangaAuthors = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -132,6 +144,37 @@ class Manga
     public function setEditorCollection(?EditorCollection $editorCollection): self
     {
         $this->editorCollection = $editorCollection;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MangaAuthor[]
+     */
+    public function getMangaAuthors(): Collection
+    {
+        return $this->mangaAuthors;
+    }
+
+    public function addMangaAuthor(MangaAuthor $mangaAuthor): self
+    {
+        if (!$this->mangaAuthors->contains($mangaAuthor)) {
+            $this->mangaAuthors[] = $mangaAuthor;
+            $mangaAuthor->setManga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMangaAuthor(MangaAuthor $mangaAuthor): self
+    {
+        if ($this->mangaAuthors->contains($mangaAuthor)) {
+            $this->mangaAuthors->removeElement($mangaAuthor);
+            // set the owning side to null (unless already changed)
+            if ($mangaAuthor->getManga() === $this) {
+                $mangaAuthor->setManga(null);
+            }
+        }
 
         return $this;
     }
