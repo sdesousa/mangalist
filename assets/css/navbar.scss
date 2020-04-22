@@ -1,24 +1,23 @@
-nav {
+.navbar {
   background-color: $darker-color;
   border-bottom: 2px solid $primary-color;
 
-}
-
-.navbar-nav .nav-item {
-  width: 10%;
-  border: 2px solid $lighter-color;
-  border-radius: 10rem;
-  margin: 0 1rem 0 1rem;
-  text-align: center;
-  &:hover {
-    border-color: $secondary-color;
-  }
-
-  a.nav-link {
-    color: $lighter-color;
+  .navbar-nav .nav-item {
+    width: 10%;
+    border: 2px solid $lighter-color;
+    border-radius: 10rem;
+    margin: 0 1rem 0 1rem;
+    text-align: center;
     &:hover {
-      color: $secondary-color;
-      text-decoration: none;
+      border-color: $secondary-color;
+    }
+
+    a.nav-link {
+      color: $lighter-color;
+      &:hover {
+        color: $secondary-color;
+        text-decoration: none;
+      }
     }
   }
 }
@@ -27,6 +26,7 @@ nav {
   height: 100%;
   min-height: 100vh;
   overflow-y: auto;
+  background-color: $darker-color;
 
   .nav-admin-title {
     text-align: center;

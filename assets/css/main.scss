@@ -7,6 +7,12 @@
   font-size: $font-size-body;
 }
 
+.msgFlash{
+  position: absolute;
+  z-index: 5;
+  width: 100%;
+}
+
 h1 {
   font-size: $font-size-title;
   font-family: $font-title;
@@ -15,4 +21,18 @@ h1 {
   margin: 1rem;
   display: inline-block;
   border-bottom: 2px solid;
+}
+
+.btn {
+  border-radius: 0.5rem;
+}
+
+.btn-darker {
+  background-color: $secondary-color;
+  color: $darker-color;
+
+  &:hover {
+    color: $lighter-color;
+    box-shadow: 0 0 2px 2px $darker-color;
+  }
 }
