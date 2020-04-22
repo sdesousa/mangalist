@@ -1,0 +1,10 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}New Author{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouvel auteur</h1>
+    <div class="container mt-4">
+        {{ include('admin/author/_form.html.twig') }}
+    </div>
+{% endblock %}

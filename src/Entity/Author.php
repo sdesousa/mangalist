@@ -21,7 +21,6 @@ class Author
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Prénom obligatoire")
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "Prénom trop long, il doit être au plus {{ limit }} caractères"
@@ -31,7 +30,6 @@ class Author
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Nom obligatoire")
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "Nom trop long, il doit être au plus {{ limit }} caractères"
@@ -41,7 +39,6 @@ class Author
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank(message="Pseudo obligatoire")
      * @Assert\Length(
      *      max = 255,
      *      maxMessage = "Pseudo trop long, il doit être au plus {{ limit }} caractères"
