@@ -28,14 +28,11 @@
                     <td>{{ manga.editor.name }}</td>
                     <td>{{ manga.editorCollection.name }}</td>
                     <td>{{ manga.year }}</td>
-                    <td>
-                        <a href="{{ path('manga_show', {'id': manga.id}) }}">show</a>
-                        <a href="{{ path('manga_edit', {'id': manga.id}) }}">edit</a>
-                    </td>
+                    <td></td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="6">no records found</td>
+                    <td colspan="7">no records found</td>
                 </tr>
             {% endfor %}
             </tbody>

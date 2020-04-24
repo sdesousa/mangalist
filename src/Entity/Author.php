@@ -127,4 +127,9 @@ class Author
 
         return $this;
     }
+
+    public function getFullname(): ?string
+    {
+        return $this->getPenname() ?? $this->getLastname() . ' ' . $this->getFirstname();
+    }
 }

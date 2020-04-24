@@ -62,7 +62,7 @@ class Manga
     private $editorCollection;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\MangaAuthor", mappedBy="manga")
+     * @ORM\OneToMany(targetEntity="App\Entity\MangaAuthor", mappedBy="manga", cascade={"persist"})
      */
     private $mangaAuthors;
 

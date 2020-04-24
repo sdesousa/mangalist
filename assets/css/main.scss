@@ -27,6 +27,18 @@ h1 {
   border-radius: 0.5rem;
 }
 
+.darker {
+  color: $darker-color;
+}
+
+.border-darker {
+  border-color: $darker-color;
+}
+
+.border-turquoise {
+  border: 1px solid $secondary-color;
+}
+
 .btn-darker {
   background-color: $secondary-color;
   color: $darker-color;
