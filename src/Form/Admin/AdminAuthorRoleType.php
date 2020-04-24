@@ -15,6 +15,7 @@ class AdminAuthorRoleType extends AbstractType
         $builder
             ->add('role', TextType::class, [
                 'label' => 'Rôle',
+                'attr' => ['placeholder' => 'Rôle'],
             ])
         ;
     }

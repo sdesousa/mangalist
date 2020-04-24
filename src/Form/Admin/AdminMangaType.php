@@ -22,26 +22,28 @@ class AdminMangaType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre',
+                'attr' => ['placeholder' => 'Titre'],
             ])
             ->add('totalVolume', IntegerType::class, [
                 'label' => 'Volumes',
                 'required' => false,
-                'attr' => ['min' => 0],
+                'attr' => ['min' => 0, 'placeholder' => '0'],
             ])
             ->add('availableVolume', IntegerType::class, [
                 'label' => 'Disponible',
                 'required' => false,
-                'attr' => ['min' => 0],
+                'attr' => ['min' => 0, 'placeholder' => '0'],
             ])
             ->add('year', IntegerType::class, [
                 'label' => 'Année',
                 'required' => false,
-                'attr' => ['min' => 1900],
+                'attr' => ['min' => 1900, 'placeholder' => '1900'],
             ])
             ->add('editor', EntityType::class, [
                 'class' => Editor::class,
                 'label' => 'Editeur',
                 'choice_label' => 'name',
+                'placeholder' => '-',
                 'query_builder' => function (EditorRepository $editorRepository) {
                     return $editorRepository->createQueryBuilder('e')
                         ->orderBy('e.name', 'ASC');
@@ -51,6 +53,7 @@ class AdminMangaType extends AbstractType
                 'class' => EditorCollection::class,
                 'label' => 'Collection',
                 'choice_label' => 'name',
+                'placeholder' => '-',
                 'query_builder' => function (EditorCollectionRepository $editorCollectionRepository) {
                     return $editorCollectionRepository->createQueryBuilder('e')
                         ->orderBy('e.name', 'ASC');

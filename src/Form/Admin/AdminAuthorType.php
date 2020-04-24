@@ -16,14 +16,17 @@ class AdminAuthorType extends AbstractType
             ->add('firstname', TextType::class, [
                 'label' => 'Prénom',
                 'required' => false,
+                'attr' => ['placeholder' => 'Prénom'],
             ])
             ->add('lastname', TextType::class, [
                 'label' => 'Nom',
                 'required' => false,
+                'attr' => ['placeholder' => 'Nom'],
             ])
             ->add('penname', TextType::class, [
                 'label' => 'Pseudonyme',
                 'required' => false,
+                'attr' => ['placeholder' => 'Pseudonyme'],
             ])
         ;
     }

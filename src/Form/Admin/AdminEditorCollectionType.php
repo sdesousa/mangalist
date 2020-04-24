@@ -18,11 +18,13 @@ class AdminEditorCollectionType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom',
+                'attr' => ['placeholder' => 'Nom'],
             ])
             ->add('editor', EntityType::class, [
                 'class' => Editor::class,
                 'label' => 'Editeur',
                 'choice_label' => 'name',
+                'placeholder' => '-',
                 'query_builder' => function (EditorRepository $editorRepository) {
                     return $editorRepository->createQueryBuilder('e')
                         ->orderBy('e.name', 'ASC');

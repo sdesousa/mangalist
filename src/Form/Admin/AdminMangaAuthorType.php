@@ -21,6 +21,7 @@ class AdminMangaAuthorType extends AbstractType
                 'class' => Author::class,
                 'label' => 'Auteur',
                 'choice_label' => 'fullname',
+                'placeholder' => '-',
                 'query_builder' => function (AuthorRepository $authorRepository) {
                     return $authorRepository->createQueryBuilder('e')
                         ->orderBy('e.lastname', 'ASC');
@@ -30,6 +31,7 @@ class AdminMangaAuthorType extends AbstractType
                 'class' => AuthorRole::class,
                 'label' => 'Rôle',
                 'choice_label' => 'role',
+                'placeholder' => '-',
                 'query_builder' => function (AuthorRoleRepository $authorRoleRepository) {
                     return $authorRoleRepository->createQueryBuilder('e')
                         ->orderBy('e.role', 'ASC');

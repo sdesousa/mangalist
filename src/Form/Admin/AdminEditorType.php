@@ -15,6 +15,7 @@ class AdminEditorType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom',
+                'attr' => ['placeholder' => 'Nom'],
             ])
         ;
     }
