@@ -11,7 +11,6 @@ parameters:
             standard: PSR12
         phpstan:
             autoload_file:
-                config
                 ./vendor/autoload.php
             configuration: ./phpstan.neon
             level: max

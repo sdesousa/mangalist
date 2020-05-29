@@ -3,10 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Manga;
-use App\Entity\MangaAuthor;
 use App\Form\Admin\AdminMangaType;
-use App\Repository\AuthorRepository;
-use App\Repository\AuthorRoleRepository;
 use App\Repository\MangaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -66,9 +63,9 @@ class AdminMangaController extends AbstractController
     {
         $form = $this->createForm(AdminMangaType::class, $manga);
 
-        $originalsMangaAuthors = new ArrayCollection();
+        $originalMangaAuthors = new ArrayCollection();
         foreach ($manga->getMangaAuthors() as $mangaAuthor) {
-            $originalsMangaAuthors->add($mangaAuthor);
+            $originalMangaAuthors->add($mangaAuthor);
         }
         $form->handleRequest($request);
 
@@ -76,8 +73,8 @@ class AdminMangaController extends AbstractController
 //            var_dump($form->getData()->getMangaAuthors());
 //            die();
             $entityManager = $this->getDoctrine()->getManager();
-            foreach ($originalsMangaAuthors as $originalsMangaAuthor) {
-                if(false === $manga->getMangaAuthors()->contains($originalsMangaAuthor)) {
+            foreach ($originalMangaAuthors as $originalsMangaAuthor) {
+                if (false === $manga->getMangaAuthors()->contains($originalsMangaAuthor)) {
                     $entityManager->remove($originalsMangaAuthor);
                 }
             }
@@ -101,11 +98,11 @@ class AdminMangaController extends AbstractController
      */
     public function delete(Request $request, Manga $manga): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$manga->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $manga->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
 
             $mangaAuthors = $manga->getMangaAuthors();
-            if(!empty($mangaAuthors)) {
+            if (!empty($mangaAuthors)) {
                 foreach ($mangaAuthors as $mangaAuthor) {
                     $entityManager->remove($mangaAuthor);
                 }
