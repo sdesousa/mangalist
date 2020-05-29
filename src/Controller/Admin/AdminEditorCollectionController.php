@@ -17,13 +17,13 @@ class AdminEditorCollectionController extends AbstractController
 {
     /**
      * @Route("/", name="admin_collection_index", methods={"GET"})
-     * @param EditorCollectionRepository $editorCollectionRepository
+     * @param EditorCollectionRepository $collectionRepository
      * @return Response
      */
-    public function index(EditorCollectionRepository $editorCollectionRepository): Response
+    public function index(EditorCollectionRepository $collectionRepository): Response
     {
         return $this->render('admin/editor_collection/index.html.twig', [
-            'editorCollections' => $editorCollectionRepository->findBy([], ['name' => 'ASC']),
+            'editorCollections' => $collectionRepository->findBy([], ['name' => 'ASC']),
         ]);
     }
 
@@ -83,7 +83,7 @@ class AdminEditorCollectionController extends AbstractController
      */
     public function delete(Request $request, EditorCollection $editorCollection): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$editorCollection->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $editorCollection->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($editorCollection);
             $entityManager->flush();

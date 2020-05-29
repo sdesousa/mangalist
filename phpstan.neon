@@ -4,6 +4,7 @@ includes:
     - vendor/phpstan/phpstan-symfony/extension.neon
 parameters:
     autoload_directories:
-        - %rootDir%/../../../src/Migrations 
+        - %rootDir%/../../../src/Migrations
     excludes_analyse:
         - src/DataFixtures
+        - tests/bootstrap.php

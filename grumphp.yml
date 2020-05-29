@@ -10,8 +10,7 @@ parameters:
         phpcs:
             standard: PSR12
         phpstan:
-            autoload_file:
-                ./vendor/autoload.php
+            autoload_file: ./vendor/autoload.php
             configuration: ./phpstan.neon
             level: max
         phpmd:
