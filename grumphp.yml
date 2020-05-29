@@ -1,0 +1,22 @@
+parameters:
+    git_dir: .
+    bin_dir: './vendor/bin'
+    hooks_dir: ~
+    hooks_preset: local
+    ascii:
+        failed: grumphp-grumpy.txt
+        succeeded: grumphp-happy.txt
+    tasks:
+        phpcs:
+            standard: PSR12
+        phpstan:
+            autoload_file:
+                config
+                ./vendor/autoload.php
+            configuration: ./phpstan.neon
+            level: max
+        phpmd:
+            whitelist_patterns:
+                - 'src'
+            ruleset:
+                - 'phpmd.xml'
