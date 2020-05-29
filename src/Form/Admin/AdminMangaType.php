@@ -13,11 +13,36 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminMangaType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * @var EditorRepository
+     */
+    private $editorRepository;
+    /**
+     * @var EditorCollectionRepository
+     */
+    private $collectionRepository;
+
+    /**
+     * AdminMangaType constructor.
+     * @param EditorRepository $editorRepository
+     * @param EditorCollectionRepository $collectionRepository
+     */
+    public function __construct(
+        EditorRepository $editorRepository,
+        EditorCollectionRepository $collectionRepository
+    ) {
+        $this->editorRepository = $editorRepository;
+        $this->collectionRepository = $collectionRepository;
+    }
+
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class, [
@@ -39,26 +64,6 @@ class AdminMangaType extends AbstractType
                 'required' => false,
                 'attr' => ['min' => 1900, 'placeholder' => '1900'],
             ])
-            ->add('editor', EntityType::class, [
-                'class' => Editor::class,
-                'label' => 'Editeur',
-                'choice_label' => 'name',
-                'placeholder' => '-',
-                'query_builder' => function (EditorRepository $editorRepository) {
-                    return $editorRepository->createQueryBuilder('e')
-                        ->orderBy('e.name', 'ASC');
-                },
-            ])
-            ->add('editorCollection', EntityType::class, [
-                'class' => EditorCollection::class,
-                'label' => 'Collection',
-                'choice_label' => 'name',
-                'placeholder' => '-',
-                'query_builder' => function (EditorCollectionRepository $editorCollectionRepository) {
-                    return $editorCollectionRepository->createQueryBuilder('e')
-                        ->orderBy('e.name', 'ASC');
-                },
-            ])
             ->add('mangaAuthors', CollectionType::class, [
                 'entry_type' => AdminMangaAuthorType::class,
                 'entry_options' => ['label' => false],
@@ -66,11 +71,62 @@ class AdminMangaType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'label' => false,
-            ])
-        ;
+            ]);
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'onPreSetData'));
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'onPreSubmit'));
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    protected function addElements(FormInterface $form, Editor $editor = null): void
+    {
+        $form->add('editor', EntityType::class, [
+            'class' => Editor::class,
+            'label' => 'Editeur',
+            'choice_label' => 'name',
+            'placeholder' => '-',
+            'query_builder' => function (EditorRepository $editorRepository) {
+                return $editorRepository->createQueryBuilder('e')
+                    ->orderBy('e.name', 'ASC');
+            },
+        ]);
+        $editorCollections = [];
+        if ($editor) {
+            $editorCollections = $this->collectionRepository->createQueryBuilder("c")
+                ->where("c.editor = :editorId")
+                ->setParameter("editorId", $editor->getId())
+                ->orderBy('c.name', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
+        $form->add('editorCollection', EntityType::class, [
+            'class' => EditorCollection::class,
+            'label' => 'Collection',
+            'choices' => $editorCollections,
+            'choice_label' => 'name',
+            'placeholder' => '-',
+        ]);
+    }
+
+    public function onPreSubmit(FormEvent $event): void
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
+
+        $editor = $this->editorRepository->find($data['editor']);
+
+        $this->addElements($form, $editor);
+    }
+
+    public function onPreSetData(FormEvent $event): void
+    {
+        $manga = $event->getData();
+        $form = $event->getForm();
+
+        $editor = $manga->getEditor() ? $manga->getEditor() : null;
+
+        $this->addElements($form, $editor);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Manga::class,

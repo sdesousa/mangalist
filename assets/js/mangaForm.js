@@ -10,14 +10,15 @@ $(document).ready(function () {
         addRemoveButton($(this));
     });
     $collectionHolder.append($newLinkLi);
-    $collectionHolder.data('index', $collectionHolder.find('.authorElem').length )
+    $collectionHolder.data('index', $collectionHolder.find('.authorElem').length)
     $addNewButton.click(function (e) {
         e.preventDefault();
         addNewForm($collectionHolder, $newLinkLi);
     });
 });
 
-function addNewForm($collectionHolder, $newLinkLi) {
+function addNewForm($collectionHolder, $newLinkLi)
+{
     const prototype = $collectionHolder.data('prototype');
     const index = $collectionHolder.data('index');
     let newForm = prototype;
@@ -28,7 +29,8 @@ function addNewForm($collectionHolder, $newLinkLi) {
     addRemoveButton($newFormLi);
 }
 
-function addRemoveButton($formLi) {
+function addRemoveButton($formLi)
+{
     const $removeButton = $('<a href="#" class="btn btn-danger offset-11">-</a>');
     $formLi.append($removeButton);
     $removeButton.click(function (e) {
@@ -38,3 +40,27 @@ function addRemoveButton($formLi) {
         });
     });
 }
+
+$('#admin_manga_editor').change(function () {
+    const editorSelector = $(this);
+    $.ajax({
+        url: "/admin/manga/list",
+        type: "GET",
+        dataType: "JSON",
+        data: {
+            editorId: editorSelector.val()
+        },
+        success: function (editorCollections) {
+            let editorCollectionSelect = $("#admin_manga_editorCollection");
+            editorCollectionSelect.html('');
+            editorCollectionSelect.append('<option value> - </option>');
+            $.each(editorCollections, function (key, editorCollection) {
+                console.log(editorCollection)
+                editorCollectionSelect.append('<option value="' + editorCollection.id + '">' + editorCollection.editor + '</option>');
+            });
+        },
+        error: function (err) {
+            alert("Une erreur s'est produite lors de la récupération des données ...");
+        }
+    });
+});

@@ -2,11 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\EditorCollection;
 use App\Entity\Manga;
 use App\Form\Admin\AdminMangaType;
 use App\Repository\MangaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -70,8 +72,6 @@ class AdminMangaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            var_dump($form->getData()->getMangaAuthors());
-//            die();
             $entityManager = $this->getDoctrine()->getManager();
             foreach ($originalMangaAuthors as $originalsMangaAuthor) {
                 if (false === $manga->getMangaAuthors()->contains($originalsMangaAuthor)) {
@@ -113,5 +113,30 @@ class AdminMangaController extends AbstractController
         }
 
         return $this->redirectToRoute('admin_manga_index');
+    }
+
+    /**
+     * @Route("/list", name="list_collection_from_editor", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function listCollectionsOfEditorAction(
+        Request $request
+    ) {
+        $entityManager = $this->getDoctrine()->getManager();
+        $editorCollections = $entityManager->getRepository(EditorCollection::class)
+            ->createQueryBuilder("c")
+            ->where("c.editor = :editorId")
+            ->setParameter("editorId", $request->query->get("editorId"))
+            ->getQuery()
+            ->getResult();
+        $response = [];
+        foreach ($editorCollections as $editorCollection) {
+            $response[] = [
+                "id" => $editorCollection->getId(),
+                "editor" => $editorCollection->getName()
+            ];
+        }
+        return new JsonResponse($response);
     }
 }
