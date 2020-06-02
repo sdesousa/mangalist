@@ -66,6 +66,11 @@ class Manga
      */
     private $mangaAuthors;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $remark;
+
     public function __construct()
     {
         $this->mangaAuthors = new ArrayCollection();
@@ -175,6 +180,18 @@ class Manga
                 $mangaAuthor->setManga(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRemark(): ?string
+    {
+        return $this->remark;
+    }
+
+    public function setRemark(?string $remark): self
+    {
+        $this->remark = $remark;
 
         return $this;
     }

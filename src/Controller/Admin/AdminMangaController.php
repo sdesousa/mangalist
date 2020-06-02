@@ -116,7 +116,7 @@ class AdminMangaController extends AbstractController
     }
 
     /**
-     * @Route("/list", name="list_collection_from_editor", methods={"GET"})
+     * @Route("/list", name="list_collections_from_editor", methods={"GET"})
      * @param Request $request
      * @return JsonResponse
      */

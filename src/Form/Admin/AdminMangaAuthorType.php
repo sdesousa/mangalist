@@ -14,36 +14,43 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AdminMangaAuthorType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('author', EntityType::class, [
-                'class' => Author::class,
-                'label' => 'Auteur',
-                'choice_label' => 'fullname',
-                'placeholder' => '-',
-                'query_builder' => function (AuthorRepository $authorRepository) {
-                    return $authorRepository->createQueryBuilder('e')
-                        ->orderBy('e.lastname', 'ASC');
-                },
-            ])
-            ->add('role', EntityType::class, [
-                'class' => AuthorRole::class,
-                'label' => 'Rôle',
-                'choice_label' => 'role',
-                'placeholder' => '-',
-                'query_builder' => function (AuthorRoleRepository $authorRoleRepository) {
-                    return $authorRoleRepository->createQueryBuilder('e')
-                        ->orderBy('e.role', 'ASC');
-                },
-            ])
+           ->add('author', EntityType::class, [
+               'class' => Author::class,
+               'label' => 'Auteur',
+               'choice_label' => 'fullname',
+               'placeholder' => '-',
+               'query_builder' => function (AuthorRepository $authorRepository) {
+                   return $authorRepository->createQueryBuilder('e')
+                       ->orderBy('e.lastname', 'ASC');
+               },
+           ])
+           ->add('role', EntityType::class, [
+               'class' => AuthorRole::class,
+               'label' => 'Rôle',
+               'choice_label' => 'role',
+               'placeholder' => '-',
+               'query_builder' => function (AuthorRoleRepository $authorRoleRepository) {
+                   return $authorRoleRepository->createQueryBuilder('e')
+                       ->orderBy('e.role', 'ASC');
+               },
+           ])
         ;
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MangaAuthor::class,
+           'data_class' => MangaAuthor::class,
         ]);
     }
 }

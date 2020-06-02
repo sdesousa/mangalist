@@ -19,6 +19,7 @@
                 <th>Année</th>
                 <th>Editeur</th>
                 <th>Collection</th>
+                <th>Remarque</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -37,6 +38,7 @@
                     <td>{{ manga.year }}</td>
                     <td>{{ manga.editor.name }}</td>
                     <td>{{ manga.editorCollection.name }}</td>
+                    <td>{{ manga.remark }}</td>
                     <td class="d-flex">
                         <a class="btn btn-darker mr-4" href="{{ path('admin_manga_edit', {'id': manga.id}) }}">modifier</a>
                         {{ include('admin/manga/_delete_form.html.twig') }}

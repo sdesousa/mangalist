@@ -8,3 +8,4 @@ parameters:
     excludes_analyse:
         - src/DataFixtures
         - tests/bootstrap.php
+    checkMissingIterableValueType: false
