@@ -1,0 +1,28 @@
+{% form_theme form 'bootstrap_4_horizontal_layout.html.twig' %}
+{{ form_start(form) }}
+    <h4>Infos:</h4>
+    <ul class="row list-unstyled">
+        <li class="col-10 offset-1 mb-3 p-4 border-turquoise">
+            {{ form_row(form.title) }}
+            {{ form_row(form.totalVolume) }}
+            {{ form_row(form.availableVolume) }}
+            {{ form_row(form.year) }}
+            {{ form_row(form.remark) }}
+            {{ form_row(form.editor) }}
+            {{ form_row(form.editorCollection) }}
+        </li>
+    </ul>
+    <h4 id="authorTitle" class="mb-3">Auteurs:</h4>
+    <ul class="row list-unstyled" id="authorList" data-prototype="{{ form_widget(form.mangaAuthors.vars.prototype)|e('html_attr') }}">
+        {% for author in form.mangaAuthors %}
+            <li class="col-10 offset-1 authorElem mb-3 p-4 border-turquoise">
+                {{ form_row(author.author) }}
+                {{ form_row(author.role) }}
+            </li>
+        {% endfor %}
+    </ul>
+    <div class="d-flex justify-content-around">
+        <button class="btn btn-darker">{{ button_label|default('Enregistrer') }}</button>
+        <a class="btn btn-darker" href="{{ path('admin_manga_index') }}">Retourner à la liste</a>
+    </div>
+{{ form_end(form) }}

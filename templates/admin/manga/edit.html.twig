@@ -1,0 +1,15 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}Edit Manga{% endblock %}
+
+{% block body %}
+    <h1>Modifier le manga</h1>
+    <div class="container mt-4">
+        {{ include('admin/manga/_form.html.twig', {'button_label': 'Modifier'}) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('mangaForm') }}
+{% endblock %}

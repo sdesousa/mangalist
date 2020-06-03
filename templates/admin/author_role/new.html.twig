@@ -1,0 +1,10 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}New AuthorRole{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau rôle d'auteur</h1>
+    <div class="container mt-4">
+        {{ include('admin/author_role/_form.html.twig') }}
+    </div>
+{% endblock %}

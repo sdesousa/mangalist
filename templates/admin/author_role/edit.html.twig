@@ -1,0 +1,8 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}Edit AuthorRole{% endblock %}
+
+{% block body %}
+    <h1>Modifier le rôle d'auteur</h1>
+    {{ include('admin/author_role/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}

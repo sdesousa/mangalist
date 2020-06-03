@@ -1,0 +1,8 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}Edit EditorCollection{% endblock %}
+
+{% block body %}
+    <h1>Modifier la collection</h1>
+    {{ include('admin/editor_collection/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}

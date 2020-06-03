@@ -1,0 +1,41 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}Author index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center m-5">Les auteurs</h1>
+        <a class="btn btn-darker" href="{{ path('admin_author_new') }}">
+            Créer un auteur
+        </a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Pseudonyme</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for author in authors %}
+                <tr>
+                    <td>{{ author.id }}</td>
+                    <td>{{ author.firstname }}</td>
+                    <td>{{ author.lastname }}</td>
+                    <td>{{ author.penname }}</td>
+                    <td class="d-flex">
+                        <a class="btn btn-darker mr-4" href="{{ path('admin_author_edit', {'id': author.id}) }}">modifier</a>
+                        {{ include('admin/author/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucun élément trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

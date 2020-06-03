@@ -1,0 +1,10 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}New EditorCollection{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle collection</h1>
+    <div class="container mt-4">
+        {{ include('admin/editor_collection/_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}Manga index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center m-5">Les manga</h1>
+        <a class="btn btn-darker" href="{{ path('admin_manga_new') }}">
+            Créer un manga
+        </a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Disponible</th>
+                <th>Total</th>
+                <th>Auteur</th>
+                <th>Année</th>
+                <th>Editeur</th>
+                <th>Collection</th>
+                <th>Remarque</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for manga in mangas %}
+                <tr>
+                    <td>{{ manga.id }}</td>
+                    <td>{{ manga.title }}</td>
+                    <td>{{ manga.availableVolume }}</td>
+                    <td>{{ manga.totalVolume }}</td>
+                    <td>
+                        {% for mangaAuthor in manga.mangaAuthors %}
+                            <div>{{ mangaAuthor.author.fullname }} ({{ mangaAuthor.role.role }})</div>
+                        {% endfor %}
+                    </td>
+                    <td>{{ manga.year }}</td>
+                    <td>{{ manga.editor.name }}</td>
+                    <td>{{ manga.editorCollection.name }}</td>
+                    <td>{{ manga.remark }}</td>
+                    <td class="d-flex">
+                        <a class="btn btn-darker mr-4" href="{{ path('admin_manga_edit', {'id': manga.id}) }}">modifier</a>
+                        {{ include('admin/manga/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">Aucun élément trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

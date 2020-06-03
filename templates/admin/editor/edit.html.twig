@@ -1,0 +1,8 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}Edit Editor{% endblock %}
+
+{% block body %}
+    <h1>Modifier l'éditeur</h1>
+    {{ include('admin/editor/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}
