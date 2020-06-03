@@ -71,9 +71,15 @@ class Manga
      */
     private $remark;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MangaListing::class, mappedBy="manga", orphanRemoval=true)
+     */
+    private $mangaListings;
+
     public function __construct()
     {
         $this->mangaAuthors = new ArrayCollection();
+        $this->mangaListings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,6 +198,37 @@ class Manga
     public function setRemark(?string $remark): self
     {
         $this->remark = $remark;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MangaListing[]
+     */
+    public function getMangaListings(): Collection
+    {
+        return $this->mangaListings;
+    }
+
+    public function addMangaListing(MangaListing $mangaListing): self
+    {
+        if (!$this->mangaListings->contains($mangaListing)) {
+            $this->mangaListings[] = $mangaListing;
+            $mangaListing->setManga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMangaListing(MangaListing $mangaListing): self
+    {
+        if ($this->mangaListings->contains($mangaListing)) {
+            $this->mangaListings->removeElement($mangaListing);
+            // set the owning side to null (unless already changed)
+            if ($mangaListing->getManga() === $this) {
+                $mangaListing->setManga(null);
+            }
+        }
 
         return $this;
     }
