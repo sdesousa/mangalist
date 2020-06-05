@@ -57,7 +57,7 @@ class AdminMangaType extends AbstractType
             ->add('totalVolume', IntegerType::class, [
                 'label' => 'Volumes',
                 'required' => false,
-                'attr' => ['min' => 0, 'placeholder' => '0'],
+                'attr' => ['min' => 1, 'placeholder' => '1'],
             ])
             ->add('availableVolume', IntegerType::class, [
                 'label' => 'Disponible',

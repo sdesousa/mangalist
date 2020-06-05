@@ -10,7 +10,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AuthorRoleRepository")
- * @UniqueEntity("role")
+ * @UniqueEntity(
+ *     fields={"role"}
+ *     message="Rôle déjà présent"
+ * )
  */
 class AuthorRole
 {

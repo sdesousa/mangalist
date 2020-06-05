@@ -5,9 +5,14 @@ namespace App\Entity;
 use App\Repository\MangaListingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=MangaListingRepository::class)
+ * @UniqueEntity(
+ *     fields={"manga", "listing"}
+ *     message="Série déjà possédé"
+ * )
  */
 class MangaListing
 {
@@ -32,7 +37,7 @@ class MangaListing
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\Positive(message="Dois être positif")
+     * @Assert\Positive(message="Dois être strictement positif")
      */
     private $possessedVolume;
 

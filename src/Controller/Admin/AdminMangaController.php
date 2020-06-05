@@ -45,7 +45,7 @@ class AdminMangaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manga);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre manga a été créée');
+            $this->addFlash('success', 'Votre manga a été créé');
             return $this->redirectToRoute('admin_manga_index');
         }
 
