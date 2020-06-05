@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MangaRepository")
  * @UniqueEntity(
- *     fields={"title"}
+ *     fields={"title"},
  *     message="Titre déjà présent"
  * )
  */

@@ -11,7 +11,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EditorRepository")
  * @UniqueEntity(
- *     fields={"name"}
+ *     fields={"name"},
  *     message="Editeur déjà présent"
  * )
  */

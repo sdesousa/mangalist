@@ -15,6 +15,7 @@
                 <th>Liste</th>
                 <th>Manga</th>
                 <th>Possédé</th>
+                <th>Finis</th>
                 <th>Remarque</th>
             </tr>
             </thead>
@@ -25,6 +26,7 @@
                     <td>{{ mangaListing.listing.id }}</td>
                     <td>{{ mangaListing.manga.title }}</td>
                     <td>{{ mangaListing.possessedVolume }}</td>
+                    <td class="d-flex justify-content-center align-items-center"><span class="{{ mangaListing.isFinished ? 'greenCircle' : 'redCircle' }}"></span></td>
                     <td>{{ mangaListing.remark }}</td>
                     <td class="d-flex">
                         <a class="btn btn-darker mr-4" href="{{ path('admin_manga_listing_edit', {'id': mangaListing.id}) }}">modifier</a>

@@ -6,11 +6,12 @@ use App\Repository\MangaListingRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass=MangaListingRepository::class)
  * @UniqueEntity(
- *     fields={"manga", "listing"}
+ *     fields={"manga", "listing"},
  *     message="Série déjà possédé"
  * )
  */
@@ -45,6 +46,22 @@ class MangaListing
      * @ORM\Column(type="text", nullable=true)
      */
     private $remark;
+
+
+    /**
+     * @Assert\Callback
+     * @param ExecutionContextInterface $context
+     * @param $payload
+     */
+    public function validate(ExecutionContextInterface $context, $payload)
+    {
+        $total = $this->getManga()->getTotalVolume();
+        if (null !== $total && $this->getPossessedVolume() > $total) {
+            $context->buildViolation('Ne peut pas être supérieur au total de volumes')
+                ->atPath('possessedVolume')
+                ->addViolation();
+        }
+    }
 
     public function getId(): ?int
     {
@@ -97,5 +114,10 @@ class MangaListing
         $this->remark = $remark;
 
         return $this;
+    }
+
+    public function isFinished(): bool
+    {
+        return ($this->getPossessedVolume() === $this->getManga()->getTotalVolume());
     }
 }
