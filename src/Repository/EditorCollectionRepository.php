@@ -20,6 +20,9 @@ class EditorCollectionRepository extends ServiceEntityRepository
         parent::__construct($registry, EditorCollection::class);
     }
 
+    /**
+     * @return array
+     */
     public function findAllOrderByEditor(): array
     {
         return $this->createQueryBuilder('c')

@@ -19,6 +19,9 @@ class MangaRepository extends ServiceEntityRepository
         parent::__construct($registry, Manga::class);
     }
 
+    /**
+     * @return array
+     */
     public function findAllOrderByTitle(): array
     {
         return $this->createQueryBuilder('m')
