@@ -26,7 +26,7 @@ class AdminMangaController extends AbstractController
     public function index(MangaRepository $mangaRepository): Response
     {
         return $this->render('admin/manga/index.html.twig', [
-            'mangas' => $mangaRepository->findBy([], ['title' => 'ASC']),
+            'mangas' => $mangaRepository->findAllOrderByTitle(),
         ]);
     }
 

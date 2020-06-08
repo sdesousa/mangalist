@@ -25,6 +25,7 @@ class MangaListingRepository extends ServiceEntityRepository
     public function findAllOrderByManga(): array
     {
         return $this->createQueryBuilder('l')
+            ->select(['l', 'm'])
             ->leftJoin('l.manga', 'm')
             ->orderBy('m.title', 'ASC')
             ->getQuery()

@@ -23,6 +23,7 @@ class EditorCollectionRepository extends ServiceEntityRepository
     public function findAllOrderByEditor(): array
     {
         return $this->createQueryBuilder('c')
+            ->select(['c', 'e'])
             ->leftJoin('c.editor', 'e')
             ->orderBy('e.name', 'ASC')
             ->addOrderBy('c.name', 'ASC')
