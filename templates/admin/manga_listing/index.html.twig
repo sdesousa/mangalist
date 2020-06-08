@@ -1,0 +1,44 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}MangaListing index{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <h1 class="text-center m-5">Les manga listés</h1>
+        <a class="btn btn-darker" href="{{ path('admin_manga_listing_new') }}">
+            Créer un listé
+        </a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Liste</th>
+                <th>Manga</th>
+                <th>Possédé</th>
+                <th>Finis</th>
+                <th>Remarque</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for mangaListing in mangaListings %}
+                <tr>
+                    <td>{{ mangaListing.id }}</td>
+                    <td>{{ mangaListing.listing.id }}</td>
+                    <td>{{ mangaListing.manga.title }}</td>
+                    <td>{{ mangaListing.possessedVolume }}</td>
+                    <td class="d-flex justify-content-center align-items-center"><span class="{{ mangaListing.isFinished ? 'greenCircle' : 'redCircle' }}"></span></td>
+                    <td>{{ mangaListing.remark }}</td>
+                    <td class="d-flex">
+                        <a class="btn btn-darker mr-4" href="{{ path('admin_manga_listing_edit', {'id': mangaListing.id}) }}">modifier</a>
+                        {{ include('admin/manga_listing/_delete_form.html.twig') }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="9">Aucun élément trouvé</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

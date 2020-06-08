@@ -9,10 +9,10 @@ parameters:
     tasks:
         phpcs:
             standard: PSR12
-        phpstan:
-            autoload_file: ./vendor/autoload.php
-            configuration: ./phpstan.neon
-            level: max
+#        phpstan:
+#            autoload_file: ./vendor/autoload.php
+#            configuration: ./phpstan.neon
+#            level: max
         phpmd:
             whitelist_patterns:
                 - 'src'

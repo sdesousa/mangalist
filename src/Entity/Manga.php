@@ -6,9 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MangaRepository")
+ * @UniqueEntity(
+ *     fields={"title"},
+ *     message="Titre déjà présent"
+ * )
  */
 class Manga
 {
@@ -31,7 +36,7 @@ class Manga
 
     /**
      * @ORM\Column(type="integer", nullable=true)
-     * @Assert\Positive(message="Dois être positif")
+     * @Assert\Positive(message="Dois être strictement positif")
      */
     private $totalVolume;
 
@@ -71,9 +76,15 @@ class Manga
      */
     private $remark;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MangaListing::class, mappedBy="manga", orphanRemoval=true)
+     */
+    private $mangaListings;
+
     public function __construct()
     {
         $this->mangaAuthors = new ArrayCollection();
+        $this->mangaListings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -192,6 +203,37 @@ class Manga
     public function setRemark(?string $remark): self
     {
         $this->remark = $remark;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MangaListing[]
+     */
+    public function getMangaListings(): Collection
+    {
+        return $this->mangaListings;
+    }
+
+    public function addMangaListing(MangaListing $mangaListing): self
+    {
+        if (!$this->mangaListings->contains($mangaListing)) {
+            $this->mangaListings[] = $mangaListing;
+            $mangaListing->setManga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMangaListing(MangaListing $mangaListing): self
+    {
+        if ($this->mangaListings->contains($mangaListing)) {
+            $this->mangaListings->removeElement($mangaListing);
+            // set the owning side to null (unless already changed)
+            if ($mangaListing->getManga() === $this) {
+                $mangaListing->setManga(null);
+            }
+        }
 
         return $this;
     }

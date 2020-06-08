@@ -1,0 +1,7 @@
+.greenCircle {
+  @include coloredCircle(15px, green)
+}
+
+.redCircle {
+  @include coloredCircle(15px, red)
+}

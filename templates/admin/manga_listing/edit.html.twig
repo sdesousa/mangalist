@@ -1,0 +1,8 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}MangaListing Editor{% endblock %}
+
+{% block body %}
+    <h1>Modifier le listé</h1>
+    {{ include('admin/manga_listing/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}

@@ -1,0 +1,7 @@
+@mixin coloredCircle ($size, $color) {
+  height: $size;
+  width: $size;
+  background-color: $color;
+  border-radius: 50%;
+  display: inline-block;
+}

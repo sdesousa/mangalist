@@ -23,7 +23,7 @@ class AdminEditorCollectionController extends AbstractController
     public function index(EditorCollectionRepository $collectionRepository): Response
     {
         return $this->render('admin/editor_collection/index.html.twig', [
-            'editorCollections' => $collectionRepository->findBy([], ['name' => 'ASC']),
+            'editorCollections' => $collectionRepository->findAllOrderByEditor()
         ]);
     }
 

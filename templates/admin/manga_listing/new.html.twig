@@ -1,0 +1,10 @@
+{% extends 'layout_admin.html.twig' %}
+
+{% block title %}New MangaListing{% endblock %}
+
+{% block body %}
+    <h1>Créer un nouveau listé</h1>
+    <div class="container mt-4">
+        {{ include('admin/manga_listing/_form.html.twig') }}
+    </div>
+{% endblock %}

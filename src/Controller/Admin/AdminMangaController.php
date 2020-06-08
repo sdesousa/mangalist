@@ -26,7 +26,7 @@ class AdminMangaController extends AbstractController
     public function index(MangaRepository $mangaRepository): Response
     {
         return $this->render('admin/manga/index.html.twig', [
-            'mangas' => $mangaRepository->findBy([], ['title' => 'ASC']),
+            'mangas' => $mangaRepository->findAllOrderByTitle(),
         ]);
     }
 
@@ -45,7 +45,7 @@ class AdminMangaController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($manga);
             $entityManager->flush();
-            $this->addFlash('success', 'Votre manga a été créée');
+            $this->addFlash('success', 'Votre manga a été créé');
             return $this->redirectToRoute('admin_manga_index');
         }
 
