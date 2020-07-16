@@ -22,41 +22,41 @@ class MangaListing
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Manga::class, inversedBy="mangaListings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $manga;
+    private ?Manga $manga;
 
     /**
      * @ORM\ManyToOne(targetEntity=Listing::class, inversedBy="mangaListings")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $listing;
+    private ?Listing $listing;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\Positive(message="Dois être strictement positif")
      */
-    private $possessedVolume;
+    private ?int $possessedVolume;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $remark;
+    private ?string $remark;
 
 
     /**
      * @Assert\Callback
      * @param ExecutionContextInterface $context
-     * @param $payload
+     * @param Mixed $payload
      */
-    public function validate(ExecutionContextInterface $context, $payload)
+    public function validate(ExecutionContextInterface $context, $payload): void
     {
-        $total = $this->getManga()->getTotalVolume();
-        if (null !== $total && $this->getPossessedVolume() > $total) {
+        $manga = $this->getManga();
+        if (!is_null($manga) && $this->getPossessedVolume() > $manga->getTotalVolume()) {
             $context->buildViolation('Ne peut pas être supérieur au total de volumes')
                 ->atPath('possessedVolume')
                 ->addViolation();
@@ -116,8 +116,12 @@ class MangaListing
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isFinished(): bool
     {
-        return ($this->getPossessedVolume() === $this->getManga()->getTotalVolume());
+        $manga = $this->getManga();
+        return (!is_null($manga) && $this->getPossessedVolume() === $manga->getTotalVolume());
     }
 }
